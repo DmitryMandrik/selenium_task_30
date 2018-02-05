@@ -19,8 +19,8 @@ public class Login {
     @Test
     public void logIn(){
         LoginPage loginPage = new LoginPage();
-        driver.findElement(loginPage.email).sendKeys("ah@ah.com");
-        driver.findElement(loginPage.password).sendKeys("ah@ah.com");
+        driver.findElement(loginPage.email).sendKeys("EugenBorisik");
+        driver.findElement(loginPage.password).sendKeys("qwerty12345");
         driver.findElement(loginPage.submit).click();
     }
 
