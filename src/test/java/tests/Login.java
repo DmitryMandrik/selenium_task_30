@@ -2,6 +2,7 @@ package tests;
 
 import drivers.Chrome;
 import org.openqa.selenium.WebDriver;
+import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -22,6 +23,7 @@ public class Login {
         driver.findElement(loginPage.email).sendKeys("EugenBorisik");
         driver.findElement(loginPage.password).sendKeys("qwerty12345");
         driver.findElement(loginPage.submit).click();
+        Assert.assertEquals("RMSys - Home", driver.getTitle());
     }
 
     @AfterMethod
