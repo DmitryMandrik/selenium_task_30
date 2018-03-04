@@ -10,29 +10,71 @@ import org.testng.annotations.*;
 import pages.HomePage;
 import pages.LoginPage;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
 public class Login {
 
     private WebDriver driver;
+
+    @DataProvider
+    private Object[][] getLoginAndPass() {
+
+            BufferedReader in;
+        List<String[]> cartFilesList = new ArrayList<>();
+
+        try {
+            in = new BufferedReader(new FileReader("/Users/dmitrymandrik/Documents/training/selenium-project/src/test/datasets/creds.txt"));
+            String str;
+
+            while ((str = in.readLine()) != null) {
+                String[] str_arr = str.split(", ");
+                cartFilesList.add(str_arr);
+            }
+            in.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return cartFilesList.toArray(new Object[0][]);
+    }
 
     @BeforeClass
     public void getBrowser() {
         driver = Chrome.initChromeDriver();
     }
 
-    @Test
-    public void logIn() throws InterruptedException {
+    @Test(dataProvider = "getLoginAndPass")
+    public void logInValidCreds(String login, String password) throws InterruptedException {
         LoginPage loginPage = new LoginPage();
         driver.navigate().to(loginPage.URL);
         new WebDriverWait(driver, 5).until(
                 webDriver -> ((JavascriptExecutor) webDriver).executeScript("return document.readyState").equals("complete"));
-        driver.findElement(loginPage.email).sendKeys("EugenBorisik");
-        driver.findElement(loginPage.password).sendKeys("qwerty12345");
+        driver.findElement(loginPage.email).sendKeys(login);
+        driver.findElement(loginPage.password).sendKeys(password);
         Thread.sleep(1000);
         driver.findElement(loginPage.submit).click();
         HomePage homePage = new HomePage();
         (new WebDriverWait(driver, 7)).until(ExpectedConditions.presenceOfElementLocated(homePage.signOut));
         Assert.assertEquals(homePage.title, driver.getTitle());
     }
+
+//    @Test
+//    public void logInNonExistedCreds() throws InterruptedException {
+//        LoginPage loginPage = new LoginPage();
+//        driver.navigate().to(loginPage.URL);
+//        new WebDriverWait(driver, 5).until(
+//                webDriver -> ((JavascriptExecutor) webDriver).executeScript("return document.readyState").equals("complete"));
+//        driver.findElement(loginPage.email).sendKeys("EugenBorisik");
+//        driver.findElement(loginPage.password).sendKeys("qwerty12345");
+//        Thread.sleep(1000);
+//        driver.findElement(loginPage.submit).click();
+//        HomePage homePage = new HomePage();
+//        (new WebDriverWait(driver, 7)).until(ExpectedConditions.presenceOfElementLocated(homePage.signOut));
+//        Assert.assertEquals(homePage.title, driver.getTitle());
+//    }
 
     @Test
     public void openOfficeTab() {
