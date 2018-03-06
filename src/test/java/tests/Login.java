@@ -17,13 +17,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Login {
-
     private WebDriver driver;
 
     @DataProvider
     private Object[][] getLoginAndPass() {
-
-            BufferedReader in;
+        BufferedReader in;
         List<String[]> cartFilesList = new ArrayList<>();
 
         try {
@@ -60,21 +58,6 @@ public class Login {
         (new WebDriverWait(driver, 7)).until(ExpectedConditions.presenceOfElementLocated(homePage.signOut));
         Assert.assertEquals(homePage.title, driver.getTitle());
     }
-
-//    @Test
-//    public void logInNonExistedCreds() throws InterruptedException {
-//        LoginPage loginPage = new LoginPage();
-//        driver.navigate().to(loginPage.URL);
-//        new WebDriverWait(driver, 5).until(
-//                webDriver -> ((JavascriptExecutor) webDriver).executeScript("return document.readyState").equals("complete"));
-//        driver.findElement(loginPage.email).sendKeys("EugenBorisik");
-//        driver.findElement(loginPage.password).sendKeys("qwerty12345");
-//        Thread.sleep(1000);
-//        driver.findElement(loginPage.submit).click();
-//        HomePage homePage = new HomePage();
-//        (new WebDriverWait(driver, 7)).until(ExpectedConditions.presenceOfElementLocated(homePage.signOut));
-//        Assert.assertEquals(homePage.title, driver.getTitle());
-//    }
 
     @Test
     public void openOfficeTab() {
