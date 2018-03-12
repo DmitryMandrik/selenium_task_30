@@ -25,7 +25,7 @@ public class Login {
         List<String[]> cartFilesList = new ArrayList<>();
 
         try {
-            in = new BufferedReader(new FileReader("/Users/dmitrymandrik/Documents/training/selenium-project/src/test/datasets/creds.txt"));
+            in = new BufferedReader(new FileReader("/Users/dmitrymandrik/Documents/training/selenium-project/src/test/datasets/credentials.txt"));
             String str;
 
             while ((str = in.readLine()) != null) {
@@ -39,7 +39,7 @@ public class Login {
         return cartFilesList.toArray(new Object[0][]);
     }
 
-    @BeforeClass
+    @BeforeMethod
     public void getBrowser() {
         driver = Chrome.initChromeDriver();
     }
@@ -59,14 +59,14 @@ public class Login {
         Assert.assertEquals(homePage.title, driver.getTitle());
     }
 
-    @Test
+    @Test(enabled = false)
     public void openOfficeTab() {
         HomePage homePage = new HomePage();
         driver.findElement(homePage.officeTab).click();
         (new WebDriverWait(driver, 15, 2700)).until(ExpectedConditions.presenceOfElementLocated(homePage.searchByOffice));
     }
 
-    @AfterClass
+    @AfterMethod
     public void closeDriver() {
         driver.close();
     }
