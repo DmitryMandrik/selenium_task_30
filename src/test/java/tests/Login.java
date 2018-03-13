@@ -25,7 +25,7 @@ public class Login {
         List<String[]> cartFilesList = new ArrayList<>();
 
         try {
-            in = new BufferedReader(new FileReader("/Users/dmitrymandrik/Documents/training/selenium-project/src/test/datasets/credentials.txt"));
+            in = new BufferedReader(new FileReader("src/test/datasets/credentials.txt"));
             String str;
 
             while ((str = in.readLine()) != null) {

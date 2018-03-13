@@ -26,7 +26,6 @@ public class IFrameTest {
         String text1 = "Hello World";
         body.sendKeys(text1);
         Assert.assertEquals(text1, body.getText());
-        driver.switchTo().defaultContent();
     }
 
     @AfterClass
